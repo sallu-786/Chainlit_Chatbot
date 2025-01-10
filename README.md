@@ -37,8 +37,8 @@ This is a Web Application made using chainlit. It includes an intelligent file a
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/ai-file-analysis.git
-cd ai-file-analysis
+git clone https://github.com/sallu-786/Chainlit_Chatbot.git
+cd Chainlit_Chatbot
 ```
 
 2. Create and activate a virtual environment:
