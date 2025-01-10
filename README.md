@@ -70,10 +70,12 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 
 ```
 .
-├── app.py                 # Main application file with Chainlit setup
-├── file_handler.py       # File processing and categorization logic
-├── response.py           # LLM response generation handling
+├── cl_app2.py             # Main application file with Chainlit setup
+├── file_handler2.py       # File processing and categorization logic
+├── response2.py           # LLM response generation handling
 ├── requirements.txt       # Project dependencies
+├── main.py                # Mount chainlit (cl_app2) as FastAPI sub Application (allows access to other than localhost)
+
 ```
 
 ## Contact
