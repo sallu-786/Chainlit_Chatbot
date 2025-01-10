@@ -2,18 +2,13 @@ import os
 from dotenv import load_dotenv
 from litellm import acompletion
 
-# Load environment variables
+
 load_dotenv()
-# os.getenv("AZURE_API_KEY")
-# os.getenv("AZURE_API_BASE")
-# os.getenv("AZURE_API_VERSION")
-# MODEL = os.getenv("MODEL")
-# MODEL= ""
-MODEL= "qwen2.5-coder:0.5b"
+MODEL= "ollama/llama3.1"
 
 class GenerateResponse:
     def __init__(self):
-        self.system_msg_code = """You are CodePilot, an expert coding assistant specializing in software development. Please follow these guidelines:
+        self.system_msg_code = """You are an expert coding assistant specializing in software development. Please follow these guidelines:
 
         Core Behaviors:
         - Explain code simply, assuming the user is a beginner.
@@ -34,7 +29,7 @@ class GenerateResponse:
         self.system_msg = """You are helpful assistant. answer questions of user"""
 
         self.api_base = os.getenv("LITELLM_API_BASE", "http://localhost:11434")  # Default API base
-        self.model = "ollama/qwen2.5-coder:0.5b"  # Default model for litellm
+        self.model = MODEL  # Default model for litellm
 
     async def generate_streaming_response(self, user_message, input_documents: list = []):
         # Prepare the messages for the model
