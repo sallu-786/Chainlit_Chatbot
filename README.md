@@ -29,7 +29,7 @@ This is a Web Application made using chainlit. It includes an intelligent file a
 
 ## Prerequisites
 
-- Python 3.12+
+- Python 3.11+
 - LLM API/ Ollama (for Open source)
 - Virtual environment (recommended)
 
