@@ -9,6 +9,32 @@ async def on_chat_start():
     # Initialize empty session storage for file
     cl.user_session.set("processed_files", None)
 
+@cl.set_starters
+async def set_starters():
+    return [
+        cl.Starter(
+            label="High perormance tasks in C++",
+            message="Explore solutions in C++ for efficient and high-performance programming tasks",
+            icon="/public/c.png",
+            ),
+
+        cl.Starter(
+            label="Visual Basic For Loop",
+            message="How to write a for loop in VBA that activates after pushing the button",
+            icon="/public/vba.png",
+            ),
+        cl.Starter(
+            label="Python script for email reports",
+            message="Write a script to automate sending daily email reports in Python, and walk me through how I would set it up.",
+            icon="/public/python.png",
+            ),
+        cl.Starter(
+            label="Microsoft Power App Development",
+            message="How to create an attendence Management system in Microsoft Power Platofrm. Give me a step by step guide in Japanese?",
+            icon="/public/pa.png",
+            )
+        ]
+
 @cl.on_message
 async def on_message(input_message: cl.Message):
     user_message = input_message.content
