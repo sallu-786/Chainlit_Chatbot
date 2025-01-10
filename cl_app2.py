@@ -57,7 +57,7 @@ async def on_message(input_message: cl.Message):
     except Exception as e:
         print(f"Failed to get Response from ChatGPT: {e}")
         return
-    print(stream)
+    # print(stream)
     # Stream the response back to the user
     reply = cl.Message(content="")
     async for chunk in stream:
