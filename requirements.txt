@@ -1,17 +1,8 @@
-openai
-pydantic
 chainlit
-langchain
-langchain_openai
 pymupdf4llm
-asyncpg 
-SQLAlchemy
-azure-identity
-azure-storage-file-datalake
 litellm
 python-docx
 python-pptx
 openpyxl
 pandas
 bs4
-docling
