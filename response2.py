@@ -32,39 +32,52 @@ class GenerateResponse:
         self.model = MODEL  # Default model for litellm
 
     async def generate_streaming_response(self, user_message, input_documents: list = []):
-        # Prepare the messages for the model
-        messages = [
-            {"role": "user", "content": [{"type": "text", "text": f"User Message: \t{user_message} \n"}]}  # Add user message
-        ]
+        messages = []
 
         if input_documents:
-
             for doc in input_documents:
-
-                if doc['category']=='image':
-                    messages.insert(0, {"role": "system", "content": self.system_msg_image})
-                    messages.append({"role": "user", "content": doc['data']})    
-                    
-                elif doc['category']=="code":
-                    messages.insert(0, {"role": "system", "content": self.system_msg_code})
+                if doc['category'] == 'image':
+                    messages.append({"role": "system", "content": self.system_msg_image})
                     messages.append({
-                        "role": "user", "content": [{"type": "text", "text": f"File_Name: \t {doc['file_name']} \n Code_Content:\t {doc['data']}"}]})
+                        "role": "user", 
+                        "content": [{"type": "text", "text": f"User Message: \t{user_message} \n"}]
+                    })
+                    messages.append({"role": "user", "content": doc['data']})
                     
-                elif doc['category']=="document" or doc['category']=="pandas":
-                    messages.insert(0, {"role": "system", "content": self.system_msg_document})
+                elif doc['category'] == "code":
+                    messages.append({"role": "system", "content": self.system_msg_code})
                     messages.append({
-                        "role": "user", "content": [{"type": "text", "text": f"File_Name: \t {doc['file_name']} \n File_Content:\t {doc['data']}"}]})
+                        "role": "user", 
+                        "content": [{"type": "text", "text": f"User Message: \t{user_message} \n"}]
+                    })
+                    messages.append({
+                        "role": "user", 
+                        "content": [{"type": "text", "text": f"File_Name: \t {doc['file_name']} \n Code_Content:\t {doc['data']}"}]
+                    })
+                    
+                elif doc['category'] == "document" or doc['category'] == "pandas":
+                    messages.append({"role": "system", "content": self.system_msg_document})
+                    messages.append({
+                        "role": "user", 
+                        "content": [{"type": "text", "text": f"User Message: \t{user_message} \n"}]
+                    })
+                    messages.append({
+                        "role": "user", 
+                        "content": [{"type": "text", "text": f"File_Name: \t {doc['file_name']} \n File_Content:\t {doc['data']}"}]
+                    })
         else:
-
-            messages.insert(0, {"role": "system", "content": self.system_msg})
-
+            messages.append({"role": "system", "content": self.system_msg})
+            messages.append({
+                "role": "user", 
+                "content": [{"type": "text", "text": f"User Message: \t{user_message} \n"}]
+            })
         try:
             response = await acompletion(
-                model = self.model,
+                model=self.model,
                 messages=messages,
                 stream=True 
             )                    
             async for chunk in response:
-                    yield chunk  
+                yield chunk  
         except Exception as e:
             raise RuntimeError(f"Failed to get response: {e}")
