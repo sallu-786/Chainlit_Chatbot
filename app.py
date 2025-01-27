@@ -18,7 +18,7 @@ async def on_chat_start():
                 id="model-selection",
                 label="Model Selection-Mode",
                 values = ["dynamic"] + [v for _, v in models.items()],
-                initial_index=1,                                                             # 0 index for dynamic model selection
+                initial_index=0,                                                             # 0 index for dynamic model selection
             ),
         ]
     ).send()
