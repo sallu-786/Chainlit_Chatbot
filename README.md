@@ -31,6 +31,46 @@ This is a Web Application made using chainlit. It includes an intelligent file a
 ![image](https://github.com/user-attachments/assets/d9ac8f69-66c9-4615-9255-10ae203ff1aa)
 
 
+```mermaid
+stateDiagram-v2
+    [*] --> File_Handler : File Uploaded
+    
+    state File_Handler {
+        direction TB
+        [*] --> Determine_Category
+        Determine_Category --> Store_In_Metadata
+    }
+    Store_In_Metadata --> Generate_Response : Pass Metadata
+    state Generate_Response {
+        state Model_Selection {
+            state "Static Mode" as Static_Mode {
+                User_Selected_Model
+            }
+            
+            state "Dynamic Mode" as Dynamic_Mode {
+                Image_Category --> LLAVA
+                Code_Category --> Qwen
+                Text_Category --> DeepSeek
+                None_Category --> Phi4
+            }
+            Static_Mode --> Final_Model
+            Dynamic_Mode --> Final_Model
+        }
+        
+        state Prompt_Selection {
+            Image_Category --> Image_Prompt
+            Code_Category --> Code_Prompt
+            Text_Category --> Document_Prompt
+            None_Category --> Chat_Prompt
+        }
+        
+    }
+
+    
+    Generate_Response --> [*] : Generate Response
+```
+
+
 ## Prerequisites
 
 - Python 3.11+
