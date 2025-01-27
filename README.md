@@ -17,16 +17,16 @@ This is a Web Application made using chainlit. It includes an intelligent file a
   - Documents (PDF, DOCX, PPTX, TXT)
   - Spreadsheets (CSV, XLSX)
 - **Streaming Responses**: Real-time response generation using LiteLLM
-- **Context-Aware Analysis**: Different processing strategies for different file types
+- **Context-Aware Analysis**: Dedicated processing and LLM+Prompt selection based file types
 - **Interactive UI**: Built with Chainlit for seamless user interaction
 
-- **Dynamic Coontext-Aware Prompting**: Automatically gives best prompt/instructions to LLM based on type of file attached while keeping the token count short
+- **Context-Aware Prompting & Model Selection**: Automatically chooses the relevant prompt alongwith suitable LLM based on type of file attached.
   When a file is uploaded, the system follows these steps:
 
-  - The FileHandler determines the category of the file (Image/Code/Text document/spreadsheets/None)
+  - The FileHandler determines the category of the file (Image/Code/Text/Spreadsheets etc)
   - This category information is stored in the processed file's metadata
-  - When the GenerateResponse class receives this information, it activates the appropriate expert prompt
-  - If no file attached(None category) default prompt is used
+  - When the GenerateResponse class receives this information, it activates the appropriate LLM from the available list along with expert prompt
+  - If no file attached(None category) default prompt & LLM are used
 
 ![image](https://github.com/user-attachments/assets/d9ac8f69-66c9-4615-9255-10ae203ff1aa)
 
@@ -61,24 +61,27 @@ pip install -r requirements.txt
 
 ## Usage
 
-1. Start the Chainlit server:
+1. If you only need to run on your local machine, run this command:
 ```bash
-uvicorn main:app --host 0.0.0.0 --port 8000 
+chainlit run app.py 
 ```
+2. IF you want to make this app accessible to to others, it needs to be served as FastAPI sub application. Use following command"
+```bash
+uvicorn init:app --host 0.0.0.0 --port 8000 
+```
+Then Open your browser and navigate to `http://localhost:8000/codepilot`
 
-2. Open your browser and navigate to `http://localhost:8000/codepilot`
-
-3. Upload files and interact with the assistant through the UI
 
 ## Project Structure
 
 ```
-.
-├── cl_app2.py             # Main application file with Chainlit setup
-├── file_handler2.py       # File processing and categorization logic
-├── response2.py           # LLM response generation handling
-├── requirements.txt       # Project dependencies
-├── main.py                # Mount chainlit (cl_app2) as FastAPI sub Application (allows access to other than localhost)
+├── app.py                    # Main application file with Chainlit setup
+├── utils/
+│   ├── file_handler.py       # Contains file processing and categorization logic
+│   ├── generate_response.py  # Handles LLM response generation
+│   ├── prompts.py            # All the prompts are defined here
+├── requirements.txt          # Lists all project dependencies
+├── init.py                   # For Mounting Chainlit (app) as a FastAPI sub-application
 
 ```
 
@@ -86,5 +89,4 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 For query/projects/consultancy please contact me at suleman.muhammad08@gmail.com
 
 ## License
-
-This project is licensed under the MIT License - Please give it a star if it helps
+This project is under the MIT License - Please give it a star if it helps
