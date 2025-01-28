@@ -17,7 +17,7 @@ This is a Web Application made using chainlit. It includes an intelligent file a
   - Documents (PDF, DOCX, PPTX, TXT)
   - Spreadsheets (CSV, XLSX)
 - **Streaming Responses**: Real-time response generation using LiteLLM
-- **Context-Aware Analysis**: Dedicated processing and LLM+Prompt selection based file types
+- **Context-Aware Analysis**: Dedicated processing and LLM+Prompt selection based on file types
 - **Interactive UI**: Built with Chainlit for seamless user interaction
 
 - **Context-Aware Prompting & Model Selection**: Automatically chooses the relevant prompt alongwith suitable LLM based on type of file attached.
