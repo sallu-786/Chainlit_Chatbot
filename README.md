@@ -30,7 +30,6 @@ This is a Web Application made using chainlit. It includes an intelligent file a
 
 
 ```mermaid
-```mermaid
 flowchart TD
     Start([User]) --> Upload[Query]
     Upload --> File_Handler
