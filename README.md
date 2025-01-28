@@ -26,8 +26,6 @@ This is a Web Application made using chainlit. It includes an intelligent file a
   - When the GenerateResponse class receives this information, it activates the appropriate LLM from the available list along with expert prompt
   - If no file attached(None category) default prompt & LLM are used
 
-![image](https://github.com/user-attachments/assets/d9ac8f69-66c9-4615-9255-10ae203ff1aa)
-
 
 ```mermaid
 flowchart TD
