@@ -30,42 +30,47 @@ This is a Web Application made using chainlit. It includes an intelligent file a
 
 
 ```mermaid
-stateDiagram-v2
-    [*] --> File_Handler : File Uploaded
-    
-    state File_Handler {
-        direction TB
-        [*] --> Determine_Category
-        Determine_Category --> Store_In_Metadata
-    }
-    Store_In_Metadata --> Generate_Response : Pass Metadata
-    state Generate_Response {
-        state Model_Selection {
-            state "Static Mode" as Static_Mode {
-                User_Selected_Model
-            }
-            
-            state "Dynamic Mode" as Dynamic_Mode {
-                Image_Category --> LLAVA
-                Code_Category --> Qwen
-                Text_Category --> DeepSeek
-                None_Category --> Phi4
-            }
-            Static_Mode --> Final_Model
-            Dynamic_Mode --> Final_Model
-        }
-        
-        state Prompt_Selection {
-            Image_Category --> Image_Prompt
-            Code_Category --> Code_Prompt
-            Text_Category --> Document_Prompt
-            None_Category --> Chat_Prompt
-        }
-        
-    }
+```mermaid
+flowchart TD
+    Start([User]) --> Upload[Query]
+    Upload --> File_Handler
+    subgraph File_Handler
+        FileCheck{File Attached?}
+        FileCheck -->|Yes| FileTypeDecision{File Type?}
+        FileTypeDecision{File Type?}
+        FileTypeDecision -->|.jpg/.png| ImageHandler[Catgeory: Image]
+        ImageHandler --> ReadData[Read Image Data]
+        FileTypeDecision -->|.py/.cpp| CodeHandler[Catgeory: Code]
+        CodeHandler --> ReadData[Read Code Data]
+        FileTypeDecision -->|.pdf/.docx| DocumentHandler[Catgeory : Document]
+        DocumentHandler --> ReadData[Ingest Data]
+        FileCheck -->|No| None[Catgeory : None]
+    end
+    File_Handler -->|Data+Catgeory|Response_Generator[Response Generator]
 
-    
-    Generate_Response --> [*] : Generate Response
+    subgraph Response_Generator
+        subgraph Prompt_Decider
+        LLM_Prompt_Decision{File Catgeory?}
+        LLM_Prompt_Decision -->|Image| ImagePrompter[Image Prompt]
+        LLM_Prompt_Decision -->|Code| CodePrompter[Code Prompt]
+        LLM_Prompt_Decision -->|Document| DocumentPrompter[Document Prompt]
+        LLM_Prompt_Decision -->|None| ChatPrompter[Default Prompt]
+        end
+        
+        subgraph Model_Selector
+            DynamicModeCheck{Dynamic Mode?}
+            DynamicModeCheck -->|On| LLM_Decision{File Category?}
+            LLM_Decision -->|Image| ImageLLM[Llava]
+            LLM_Decision -->|Code| CodeLLM[Qwen-2.5]
+            LLM_Decision -->|Document| DocumentLLM[DeepSeek]
+            LLM_Decision -->|None| ChatLLM[Phi-4]
+            DynamicModeCheck -->|Off| UserChoice[User Choice Model]
+        end
+        Prompt_Decider --> LLM_Prompt[LLM+Prompt]
+        Model_Selector --> LLM_Prompt[LLM+Prompt]
+    end
+    Response_Generator --> Generate_Response
+```
 ```
 
 
