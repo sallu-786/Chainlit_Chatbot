@@ -1,4 +1,4 @@
-# Chainlit Chatbot with Advanced File handling, Dynamic Model Selection and Custom Prompts
+# Chatbot with File handling, Dynamic Model Selection and Custom Prompts
 This is a Web Application made using chainlit. It includes an intelligent file analysis system built with Chainlit that processes various file types and generates contextual responses using LLM. The system supports multiple file formats including images, code files, documents, and spreadsheets.
 
 
