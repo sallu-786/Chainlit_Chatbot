@@ -6,7 +6,8 @@ This is a Web Application made using chainlit. It includes an intelligent file a
 
 
 ## Top Level Architecture
-![image](https://github.com/user-attachments/assets/c94bb7a9-2ddb-4a82-b82d-38fff73a9740)
+![image](https://github.com/user-attachments/assets/4d609367-6414-4687-b585-f767d9737416)
+
 
 
 ## Features
