@@ -2,10 +2,7 @@
 This is a Web Application made using chainlit. It includes an intelligent file analysis system built with Chainlit that processes various file types and generates contextual responses using LLM. The system supports multiple file formats including images, code files, documents, and spreadsheets.
 
 
-
-https://github.com/user-attachments/assets/9a86e86a-2695-4205-8f57-b75825a0c81e
-
-
+https://github.com/user-attachments/assets/c45d7770-50da-4552-b796-e7e99680e258
 
 
 ## Top Level Architecture
